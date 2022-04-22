@@ -7,6 +7,7 @@ import { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
 import ProDescriptions from '@ant-design/pro-descriptions';
 import UpdateForm from './components/UpdateForm';
 import { rule, addRule, updateRule, removeRule } from '@/services/ant-design-pro/api';
+import { testTest } from '@/api/test/index'
 /**
  * @en-US Add node
  * @zh-CN 添加节点
@@ -97,6 +98,20 @@ const TableList = () => {
    * @en-US International configuration
    * @zh-CN 国际化配置
    * */
+
+  const test = () => {
+    console.log(1111);
+    testTest(1, 10)
+      .then(res => {
+        console.log(res.json());
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
 
   const columns = [
     {
@@ -210,7 +225,7 @@ const TableList = () => {
             <PlusOutlined /> 新建
           </Button>,
         ]}
-        request={rule}
+        request={test}
         columns={columns}
         rowSelection={{
           onChange: (_, selectedRows) => {

@@ -59,6 +59,6 @@ export default defineConfig({
   webpack5: {},
   exportStatic: {},
   define: {
-    'process.env.UMI_ENV': 'http://localhost:8000/',
+    'process.env.UMI_ENV': 'http://localhost:3002',
   },
 });

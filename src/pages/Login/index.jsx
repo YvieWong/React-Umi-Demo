@@ -12,6 +12,7 @@ import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-de
 import { history, useModel } from 'umi';
 import Footer from '@/components/Footer';
 import { login } from '@/services/ant-design-pro/api';
+import { testTest } from '@/api/test';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import styles from './index.less';
 
@@ -43,6 +44,13 @@ const Login = () => {
     try {
       // 登录
       const msg = await login({ ...values, type });
+      testTest(1, 10)
+        .then(res => {
+          console.log(res);
+        })
+        .then(res => {
+          console.log(res);
+        })
 
       if (msg.status === 'ok') {
         const defaultLoginSuccessMessage = '登录成功！';

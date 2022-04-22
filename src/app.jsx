@@ -55,9 +55,10 @@ export const layout = ({ initialState, setInitialState }) => {
     iconfontUrl: '//at.alicdn.com/t/font_3344568_d02l2z7kps9.js',
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
-    waterMarkProps: {
-      content: initialState?.currentUser?.name,
-    },
+    // 水印设置
+    // waterMarkProps: {
+    //   content: initialState?.currentUser?.name,
+    // },
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history; // 如果没有登录，重定向到 login

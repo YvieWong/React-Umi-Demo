@@ -73,10 +73,15 @@ const errorHandler = (error) => {
  * 配置request请求时的默认参数
  */
 const request = extend({
-  // prefix: process.env.UMI_ENV,// 路径前缀
+  prefix: process.env.UMI_ENV,// 路径前缀
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
   timeout: 6000,
+  // mode: 'no-cors',
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
+  }
   // requestType: 'form',
 });
 
