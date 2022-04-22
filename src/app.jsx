@@ -81,13 +81,15 @@ export const layout = ({ initialState, setInitialState }) => {
               enableDarkTheme
               settings={initialState?.settings}
               onSettingChange={(settings) => {
-                setInitialState((preInitialState) => ({ ...preInitialState, settings, logo: <img src={logo} /> }));
+                setInitialState((preInitialState) => ({ ...preInitialState, settings }));
               }}
             />
           )}
         </>
+
       );
     },
     ...initialState?.settings,
+    logo: <img src={logo} />
   };
 };
