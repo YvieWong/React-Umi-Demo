@@ -45,7 +45,7 @@ export default defineConfig({
   esbuild: {},
   title: false,
   ignoreMomentLocale: true,
-  proxy: proxy[REACT_APP_ENV || 'dev'],
+  // proxy: proxy[REACT_APP_ENV || 'dev'],
   manifest: {
     basePath: '/',
   },
@@ -58,4 +58,7 @@ export default defineConfig({
   mfsu: {},
   webpack5: {},
   exportStatic: {},
+  define: {
+    'process.env.UMI_ENV': 'http://localhost:8000/',
+  },
 });

@@ -1,8 +1,8 @@
 import { extend } from 'umi-request';
 import { notification } from 'antd';
 import { history } from 'umi';
-import { getAccessToken, clearTokens } from './token'
-import stringUtil from '@/utils/stringUtil'
+// import { getAccessToken, clearTokens } from './token'
+// import stringUtil from '@/utils/stringUtil'
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -26,7 +26,8 @@ const codeMessage = {
  * 异常处理程序
  */
 const errorHandler = (error) => {
-  const { response } = error.response;
+  const { response } = error;
+
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
@@ -37,13 +38,16 @@ const errorHandler = (error) => {
       noParamUrl = url.substring(0, url.indexOf('?'));
     }
 
-    if (url.indexOf('/system/oauth/token') !== -1) {
+    // 如果调用接口去获取token报错,则证明是账号有误
+    if (url.indexOf('/login/account') !== -1) {
       notification.error({
-        message: `请求错误 [20002]: ${noParamUrl}`,
-        description: '账号不存在或密码错误',
+        // message: `请求错误 [20002]: ${noParamUrl}`,
+        message: '账号不存在或密码错误',
+        // description: '账号不存在或密码错误',
       });
       return response;
     }
+
     if (status === 401) {
       notification.warn({
         message: '请重新登陆!',
@@ -69,8 +73,10 @@ const errorHandler = (error) => {
  * 配置request请求时的默认参数
  */
 const request = extend({
+  prefix: process.env.UMI_ENV,// 路径前缀
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+  timeout: 6000,
   // requestType: 'form',
 });
 
@@ -78,13 +84,15 @@ const request = extend({
  * 所以请求拦截器
  */
 request.interceptors.request.use((url, options) => {
+  console.log(process.env);
+  console.log(url, options);
   return {
     url,
     options: {
       ...options,
-      headers: {
-        Authorization: getAccessToken(),
-      },
+      // headers: {
+      //   Authorization: getAccessToken(),
+      // },
     },
   };
 });
@@ -93,10 +101,14 @@ request.interceptors.request.use((url, options) => {
  * 所有响应拦截器
  */
 request.interceptors.response.use(async (response, options) => {
+  console.log(response);
   const { url, status } = response;
+
+  // 获取token的接口,正确返回直接放过
   if (url.indexOf('/system/oauth/token') !== -1) {
     return response;
   }
+
   // 返回下载流的问题,可以在url添加标识
   if (url.indexOf('/download/') !== -1) {
     if (status !== 200) {
@@ -109,23 +121,23 @@ request.interceptors.response.use(async (response, options) => {
     return null;
   }
 
-  const data = await response.clone().json();
-  // console.log(data)
-  if ((status === 200 && data.code !== 1) || (status !== 200 && data.data !== undefined)) {
-    // 处理参数问题
-    let noParamUrl = url;
-    if (url.indexOf('?') !== -1) {
-      noParamUrl = url.substring(0, url.indexOf('?'));
-    }
-    const msg =
-      data.data === null || stringUtil.isEmpty(data?.data?.exceptionMsg)
-        ? data.msg
-        : data.data.exceptionMsg;
-    notification.error({
-      message: `请求出错 [${data.code}]: ${noParamUrl}`,
-      description: msg,
-    });
-  }
+  // const data = await response.clone().json();
+  // // console.log(data)
+  // if ((status === 200 && data.code !== 1) || (status !== 200 && data.data !== undefined)) {
+  //   // 处理参数问题
+  //   let noParamUrl = url;
+  //   if (url.indexOf('?') !== -1) {
+  //     noParamUrl = url.substring(0, url.indexOf('?'));
+  //   }
+  //   const msg =
+  //     data.data === null || stringUtil.isEmpty(data?.data?.exceptionMsg)
+  //       ? data.msg
+  //       : data.data.exceptionMsg;
+  //   notification.error({
+  //     message: `请求出错 [${data.code}]: ${noParamUrl}`,
+  //     description: msg,
+  //   });
+  // }
   return response;
 });
 
