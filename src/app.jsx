@@ -5,6 +5,7 @@ import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
+import { testTest } from './api/test';
 import defaultSettings from '../config/defaultSettings';
 const isDev = process.env.NODE_ENV === 'development';
 import logo from './assets/svg/logo_icon.svg'
@@ -25,6 +26,10 @@ export async function getInitialState () {
   const fetchUserInfo = async () => {
     try {
       const msg = await queryCurrentUser();
+      testTest(1, 10)
+        .then(res => {
+          console.log(res)
+        })
       return msg.data;
     } catch (error) {
       history.push(loginPath);

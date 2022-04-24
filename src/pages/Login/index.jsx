@@ -44,13 +44,7 @@ const Login = () => {
     try {
       // 登录
       const msg = await login({ ...values, type });
-      testTest(1, 10)
-        .then(res => {
-          console.log(res);
-        })
-        .then(res => {
-          console.log(res);
-        })
+
 
       if (msg.status === 'ok') {
         const defaultLoginSuccessMessage = '登录成功！';
