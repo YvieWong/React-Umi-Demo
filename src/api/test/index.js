@@ -6,3 +6,12 @@ export async function testTest (pageNum, pageSize) {
     params: { pageNum, pageSize }
   });
 }
+
+export async function testTable (params, options) {
+  return request('/api/rule', {
+    method: 'GET',
+    // params: { current, pageSize },
+    params: { ...params },
+    ...(options || {}),
+  });
+}

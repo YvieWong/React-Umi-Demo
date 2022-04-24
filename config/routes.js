@@ -17,36 +17,22 @@ export default [
     icon: 'smile',
     component: './Welcome',
   },
-  // {
-  //   path: '/admin',
-  //   name: '用户权限',
-  //   icon: 'crown',
-  //   access: 'canAdmin',
-  //   component: './Admin',
-  //   routes: [
-  //     {
-  //       path: '/admin/sub-page',
-  //       name: '权限页面',
-  //       icon: 'smile',
-  //       component: './Welcome',
-  //     },
-  //     {
-  //       component: './404',
-  //     },
-  //   ],
-  // },
-  {
-    name: '列表页面',
-    icon: 'table',
-    path: '/list',
-    component: './TableList',
-  },
   {
     name: '测试页面',
-    // icon: 'test',
+    icon: 'icon-ceshi',
     path: '/test',
-    component: './test',
+    routes: [
+      { path: '/test', redirect: '/test/list' },
+      { path: '/test/list', name: '列表页面', icon: 'icon-24gl-playlistHeart2', component: './test/list' },
+      { path: '/test/form', name: '表单页面', icon: 'icon-jurassic_add-form', component: './test/form' }
+    ]
   },
+  // {
+  //   name: '测试列表页面',
+  //   icon: 'icon-ceshi',
+  //   path: '/test',
+  //   component: './test',
+  // },
   {
     path: '/',
     redirect: '/welcome',

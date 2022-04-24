@@ -12,6 +12,6 @@ export default defineConfig({
     babelOptions: {},
   },
   define: {
-    'process.env.UMI_ENV': 'http://localhost:3002',
+    'process.env.UMI_ENV': 'http://localhost:8001',
   },
 });

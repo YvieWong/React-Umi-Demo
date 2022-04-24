@@ -57,7 +57,7 @@ export async function getInitialState () {
 export const layout = ({ initialState, setInitialState }) => {
   return {
     // 配置iconfont的使用
-    iconfontUrl: '//at.alicdn.com/t/font_3344568_d02l2z7kps9.js',
+    iconfontUrl: '//at.alicdn.com/t/font_3344568_zfgiwot2bi.js',
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     // 水印设置
