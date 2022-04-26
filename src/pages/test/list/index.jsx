@@ -100,19 +100,18 @@ export default function MyList () {
   const actionRef = useRef();
   const [showDetail, setShowDetail] = useState(false);
 
+  const testTest = async () => {
+    const data = await testTable(1, 10)
+    return data
+  }
+
   return (
     <PageContainer>
       <ProTable
         columns={columns}
         actionRef={actionRef}
         cardBordered
-        request={async (params) => {
-          console.log(params);
-          params.pageIndex = params.current
-          console.log(params);
-          const msg = await testTable(params)
-          return { ...msg }
-        }}
+        request={testTest}
         rowKey="key"
         search={{ labelWidth: 'auto' }}
         form={{

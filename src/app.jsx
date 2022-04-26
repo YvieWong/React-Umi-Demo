@@ -4,12 +4,12 @@ import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
-import { BookOutlined, LinkOutlined } from '@ant-design/icons';
-import { testTest } from './api/test';
 import defaultSettings from '../config/defaultSettings';
 const isDev = process.env.NODE_ENV === 'development';
 import logo from './assets/svg/logo_icon.svg'
 const loginPath = '/gp/login';
+import TabView from './components/TabViews';
+// import { testTest } from './api/test';
 
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
@@ -27,9 +27,6 @@ export async function getInitialState () {
     try {
       const msg = await queryCurrentUser();
       // testTest(81)
-      //   .then(res => {
-      //     console.log(res)
-      //   })
       return msg.data;
     } catch (error) {
       history.push(loginPath);
@@ -58,7 +55,7 @@ export async function getInitialState () {
 export const layout = ({ initialState, setInitialState }) => {
   return {
     // 配置iconfont的使用
-    iconfontUrl: '//at.alicdn.com/t/font_3344568_zfgiwot2bi.js',
+    iconfontUrl: '//at.alicdn.com/t/font_3344568_z1lj2phbhr.js',
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     // 水印设置
@@ -81,17 +78,8 @@ export const layout = ({ initialState, setInitialState }) => {
       // if (initialState?.loading) return <PageLoading />;
       return (
         <>
+          <TabView />
           {children}
-          {!props.location?.pathname?.includes('/login') && (
-            <SettingDrawer
-              disableUrlParams
-              enableDarkTheme
-              settings={initialState?.settings}
-              onSettingChange={(settings) => {
-                setInitialState((preInitialState) => ({ ...preInitialState, settings }));
-              }}
-            />
-          )}
         </>
 
       );

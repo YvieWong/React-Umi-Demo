@@ -73,8 +73,8 @@ const Login = () => {
       <div className={styles.content}>
         <LoginForm
           logo={<img alt="logo" src="/logo_icon.svg" />}
-          title="体测管理平台"
-          subTitle={'智能体测 整体解决方案'}
+          title="云服务管理系统"
+          subTitle={'智能体测服务 整体解决方案'}
           initialValues={{ autoLogin: true, }}
           // actions={[
           //   '其他登录方式 :',

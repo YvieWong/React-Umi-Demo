@@ -8,11 +8,10 @@ export async function testTest (robotId) {
   });
 }
 
-export async function testTable (params, options) {
+export async function testTable (params) {
   return request('/api/rule', {
     method: 'GET',
     // params: { current, pageSize },
-    params: { ...params },
-    ...(options || {}),
+    params: { ...params }
   });
 }
