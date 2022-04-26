@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-undef */
 import { Space } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import React from 'react';
@@ -58,7 +59,9 @@ const GlobalHeaderRight = () => {
         <QuestionCircleOutlined />
       </span> */}
       <Avatar />
+      {/* <SelectLang /> */}
     </Space>
+
   );
 };
 

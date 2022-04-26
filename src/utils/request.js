@@ -31,7 +31,6 @@ const errorHandler = (error) => {
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
-    // console.log(status)
     // 处理参数问题
     let noParamUrl = url;
     if (url.indexOf('?') !== -1) {
@@ -73,24 +72,16 @@ const errorHandler = (error) => {
  * 配置request请求时的默认参数
  */
 const request = extend({
-  prefix: process.env.UMI_ENV,// 路径前缀
+  // prefix: process.env.UMI_ENV,// 路径前缀
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
   timeout: 6000,
-  // mode: 'no-cors',
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
-  }
-  // requestType: 'form',
 });
 
 /**
  * 所以请求拦截器
  */
 request.interceptors.request.use((url, options) => {
-  console.log(process.env);
-  console.log(url, options);
   return {
     url,
     options: {
@@ -106,7 +97,6 @@ request.interceptors.request.use((url, options) => {
  * 所有响应拦截器
  */
 request.interceptors.response.use(async (response, options) => {
-  console.log(response);
   const { url, status } = response;
 
   // 获取token的接口,正确返回直接放过

@@ -45,13 +45,12 @@ const Login = () => {
       // 登录
       const msg = await login({ ...values, type });
 
-
       if (msg.status === 'ok') {
         const defaultLoginSuccessMessage = '登录成功！';
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
-        /** 此方法会跳转到 redirect 参数所在的位置 */
 
+        /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
         const { query } = history.location;
         const { redirect } = query;
@@ -76,9 +75,7 @@ const Login = () => {
           logo={<img alt="logo" src="/logo_icon.svg" />}
           title="体测管理平台"
           subTitle={'智能体测 整体解决方案'}
-          initialValues={{
-            autoLogin: true,
-          }}
+          initialValues={{ autoLogin: true, }}
           // actions={[
           //   '其他登录方式 :',
           //   <AlipayCircleOutlined key="AlipayCircleOutlined" className={styles.icon} />,
@@ -93,7 +90,6 @@ const Login = () => {
             <Tabs.TabPane key="account" tab={'账户密码登录'} />
             <Tabs.TabPane key="mobile" tab={'手机号登录'} />
           </Tabs>
-
           {status === 'error' && loginType === 'account' && (
             <LoginMessage content={'错误的用户名和密码(admin/ant.design)'} />
           )}
@@ -129,7 +125,6 @@ const Login = () => {
               />
             </>
           )}
-
           {status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}
           {type === 'mobile' && (
             <>
@@ -156,15 +151,10 @@ const Login = () => {
                   size: 'large',
                   prefix: <LockOutlined className={styles.prefixIcon} />,
                 }}
-                captchaProps={{
-                  size: 'large',
-                }}
+                captchaProps={{ size: 'large' }}
                 placeholder={'请输入验证码！'}
                 captchaTextRender={(timing, count) => {
-                  if (timing) {
-                    return `${count} ${'秒后重新获取'}`;
-                  }
-
+                  if (timing) { return `${count} ${'秒后重新获取'}`; }
                   return '获取验证码';
                 }}
                 name="captcha"
@@ -175,32 +165,18 @@ const Login = () => {
                   },
                 ]}
                 onGetCaptcha={async (phone) => {
-                  const result = await getFakeCaptcha({
-                    phone,
-                  });
-
-                  if (result === false) {
-                    return;
-                  }
-
+                  const result = await getFakeCaptcha({ phone });
+                  if (result === false) { return; }
                   message.success('获取验证码成功！验证码为：1234');
                 }}
               />
             </>
           )}
-          <div
-            style={{
-              marginBottom: 24,
-            }}
-          >
+          <div style={{ marginBottom: 24 }} >
             <ProFormCheckbox noStyle name="autoLogin">
               自动登录
             </ProFormCheckbox>
-            <a
-              style={{
-                float: 'right',
-              }}
-            >
+            <a style={{ float: 'right' }} >
               忘记密码 ?
             </a>
           </div>

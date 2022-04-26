@@ -26,10 +26,10 @@ export async function getInitialState () {
   const fetchUserInfo = async () => {
     try {
       const msg = await queryCurrentUser();
-      testTest(1, 10)
-        .then(res => {
-          console.log(res)
-        })
+      // testTest(81)
+      //   .then(res => {
+      //     console.log(res)
+      //   })
       return msg.data;
     } catch (error) {
       history.push(loginPath);
@@ -52,8 +52,9 @@ export async function getInitialState () {
     fetchUserInfo,
     settings: defaultSettings,
   };
-} // ProLayout 支持的api https://procomponents.ant.design/components/layout
+}
 
+// ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout = ({ initialState, setInitialState }) => {
   return {
     // 配置iconfont的使用

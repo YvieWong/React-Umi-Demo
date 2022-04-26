@@ -9,7 +9,6 @@ export default [
         component: './404',
       },
     ]
-
   },
   {
     path: '/welcome',
@@ -27,12 +26,6 @@ export default [
       { path: '/test/form', name: '表单页面', icon: 'icon-jurassic_add-form', component: './test/form' }
     ]
   },
-  // {
-  //   name: '测试列表页面',
-  //   icon: 'icon-ceshi',
-  //   path: '/test',
-  //   component: './test',
-  // },
   {
     path: '/',
     redirect: '/welcome',
