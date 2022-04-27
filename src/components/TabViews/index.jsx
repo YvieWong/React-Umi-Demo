@@ -1,47 +1,70 @@
-import React, { useState } from 'react'
-import { history } from 'umi';
+import React, { useEffect, useState } from 'react'
+import { history, useLocation, withRouter } from 'umi';
 import { Tabs } from 'antd'
-import { set } from 'lodash';
+import { getTotalRouter } from '@/utils'
+import './index.less'
 
 const { TabPane } = Tabs;
-export default function TabView () {
+function TabView () {
+  const location = useLocation().pathname
   const [activeKey, setActiveKey] = useState('')
-  const [panes, setPanes] = useState([{
-    title: '首页',
-    key: '/welcome'
-  }]);
+  const [panes, setPanes] = useState([]);
+
+  useEffect(() => {
+    const route = getTotalRouter(location)
+    add(route)
+  }, [location])
 
   const onChange = activeKey => {
     // this.setState({ activeKey }, function () {
     //   history.push({ pathname: activeKey });
     // });
+    console.log(activeKey, 111);
     setActiveKey(activeKey)
+    history.push(activeKey)
   };
 
   const onEdit = (targetKey, action) => {
-    this[action](targetKey);
+    console.log(activeKey, 222);
+    remove(targetKey)
+  };
+
+  const add = (obj) => {
+    console.log(obj, 333);
+    let newArr = panes
+    const result = newArr.find(item => {
+      return item.path === obj.path
+    })
+    if (!result) {
+      setPanes(() => {
+        newArr.push(obj)
+        return newArr
+      })
+    }
+    setActiveKey(obj.path)
   };
 
   const remove = targetKey => {
-    let lastIndex;
+    console.log(targetKey, 4444);
+    let lastIndex, active;
     panes.forEach((pane, i) => {
       if (pane.key === targetKey) {
         lastIndex = i - 1;
       }
     });
-    const temPanes = panes.filter(pane => pane.key !== targetKey);
+    const temPanes = panes.filter(pane => pane.path !== targetKey);
     if (temPanes.length && activeKey === targetKey) {
       if (lastIndex >= 0) {
-        activeKey = temPanes[lastIndex].key;
+        active = temPanes[lastIndex].path;
       } else {
-        activeKey = temPanes[0].key;
+        active = temPanes[0].path;
       }
     }
     setPanes(temPanes)
-    setActiveKey(activeKey)
+    setActiveKey(active)
   };
   return (
-    <div>
+    <div id="TabView">
       <Tabs
         hideAdd
         onChange={onChange}
@@ -50,7 +73,7 @@ export default function TabView () {
         onEdit={onEdit}
       >
         {panes.map(pane => (
-          <TabPane tab={pane.title} key={pane.key}>
+          <TabPane tab={pane.name} key={pane.path}>
             {pane.content}
           </TabPane>
         ))}
@@ -58,3 +81,5 @@ export default function TabView () {
     </div>
   )
 }
+export default withRouter(TabView)
+

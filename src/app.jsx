@@ -9,6 +9,7 @@ const isDev = process.env.NODE_ENV === 'development';
 import logo from './assets/svg/logo_icon.svg'
 const loginPath = '/gp/login';
 import TabView from './components/TabViews';
+import { useEffect } from 'react';
 // import { testTest } from './api/test';
 
 
@@ -53,6 +54,7 @@ export async function getInitialState () {
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout = ({ initialState, setInitialState }) => {
+
   return {
     // 配置iconfont的使用
     iconfontUrl: '//at.alicdn.com/t/font_3344568_z1lj2phbhr.js',
@@ -78,7 +80,7 @@ export const layout = ({ initialState, setInitialState }) => {
       // if (initialState?.loading) return <PageLoading />;
       return (
         <>
-          <TabView />
+          {!props.location?.pathname?.includes('/login') && (<TabView />)}
           {children}
         </>
 

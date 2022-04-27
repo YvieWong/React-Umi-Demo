@@ -28,9 +28,9 @@ export default [
   //   ]
   // },
   {
+    path: '/score',
     name: '成绩查询',
     icon: 'icon-chengjiguanli',
-    path: '/score',
     // component: './account'
     component: './test/list'
   },
